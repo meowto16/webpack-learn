@@ -1,13 +1,15 @@
-const btn = document.getElementById('load-async-component')
+import _ from 'lodash';
+import Print from './print';
 
-function getComponent() {
+function component() {
   const element = document.createElement('div');
 
-  return import('lodash').then(({ default: _ }) => {
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  // Lodash, now imported by this script
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  element.onclick = Print.bind(null, 'Hello webpack!');
+  console.log('hello')
 
-    return element;
-  })
+  return element;
 }
 
-btn.onclick = () => getComponent().then(component => document.body.appendChild(component))
+document.body.appendChild(component());

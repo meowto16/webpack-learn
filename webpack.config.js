@@ -7,7 +7,6 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    another: './src/another-module.js'
   },
   devServer: {
     static: './dist',
@@ -19,7 +18,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true
   },
@@ -32,13 +31,21 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Output Management',
+      title: 'Caching',
       template: './src/index.html'
     }),
   ],
   optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
     },
     minimizer: [new TerserPlugin({
       extractComments: false,
