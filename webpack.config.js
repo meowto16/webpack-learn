@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     index: './src/index.js',
   },
@@ -24,6 +24,7 @@ module.exports = {
   },
   module: {
     rules: [
+      { test: /\.js/i, use: ['babel-loader'], include: path.resolve(__dirname, 'src')},
       { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
       { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: 'asset/resource' },
       { test: /\.(woff|woff2|eot|ttf|otf)$/i, type: 'asset/resource' }
