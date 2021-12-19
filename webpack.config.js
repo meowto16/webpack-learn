@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    print: './src/print.js',
+    another: './src/another-module.js'
   },
   devServer: {
     static: './dist',
@@ -15,7 +15,7 @@ module.exports = {
       logging: 'error',
       overlay: true
     },
-    server: 'https'
+    server: 'http'
   },
   devtool: 'inline-source-map',
   output: {
@@ -33,9 +33,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Output Management',
+      template: './src/index.html'
     }),
   ],
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
     minimizer: [new TerserPlugin({
       extractComments: false,
     })],
