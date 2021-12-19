@@ -1,22 +1,16 @@
-import _ from 'lodash'
-
-import './style.css'
-
-import ProgrammingIcon from './programming.png'
+import join from 'lodash/join';
+import printMe from './print.js';
 
 function component() {
   const element = document.createElement('div');
+  const btn = document.createElement('button');
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
+  element.innerHTML = join(['Hello', 'webpack'], ' ');
 
-  const myIcon = new Image()
-  myIcon.src = ProgrammingIcon
-  myIcon.width = 24
-  myIcon.height = 24
+  btn.innerHTML = 'Click me and check the console!';
+  btn.onclick = printMe;
 
-  document.body.insertAdjacentElement('beforeend', myIcon)
+  element.appendChild(btn);
 
   return element;
 }
